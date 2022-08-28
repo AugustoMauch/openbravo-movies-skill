@@ -1,0 +1,95 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "bravo movies",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "BestMoviesIntent",
+          "slots": [
+            {
+              "name": "year",
+              "type": "AMAZON.FOUR_DIGIT_NUMBER"
+            },
+            {
+              "name": "genre",
+              "type": "MovieGenre"
+            }
+          ],
+          "samples": [
+            "devuelve las películas de más éxito de {year} de {genre}",
+            "dame la lista de las mejores películas de {genre} del año {year}",
+            "dime las películas más populares de {genre} estrenadas en {year}"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "values": [
+            {
+              "id": "27",
+              "name": {
+                "value": "horror",
+                "synonyms": [
+                  "miedo"
+                ]
+              }
+            },
+            {
+              "id": "35",
+              "name": {
+                "value": "comedia",
+                "synonyms": [
+                  "risas"
+                ]
+              }
+            },
+            {
+              "id": "16",
+              "name": {
+                "value": "animación"
+              }
+            },
+            {
+              "id": "12",
+              "name": {
+                "value": "aventuras"
+              }
+            },
+            {
+              "id": "28",
+              "name": {
+                "value": "acción",
+                "synonyms": [
+                  "tiros"
+                ]
+              }
+            }
+          ],
+          "name": "MovieGenre"
+        }
+      ]
+    }
+  },
+<<<<<<< HEAD
+  "version": "6"
+}
+=======
+  "version": "7"
+}
+>>>>>>> 86325e4 (Cuarte version de BestMoviesIntent: definicion de filtro por tipo de pelicula)
