@@ -29,10 +29,14 @@ const BestMoviesIntentHandler = {
     },
     async handle(handlerInput) {
 
-        const response = await axios(
-                `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${API_KEY}`);
+        const yearValue = Alexa.getSlotValue(handlerInput.requestEnvelope, 'year');
+        const yearParam = yearValue ? `&primary_release_year=${yearValue}` : '';
+        const response = await axios(`https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${API_KEY}${yearParam}`);
+
         const filmTitles = response.data.results.slice(0, 3).map(result => result.title).join(',');
-        const speakOutput = `Estas son las tres películas más populares: ${filmTitles}`;
+
+        const yearOutput = yearValue ? ` estrenadas en ${yearValue}` : '';
+        const speakOutput = `Estas son las tres películas más populares ${yearOutput}: ${filmTitles}`;
         
         return handlerInput.responseBuilder
             .speak(speakOutput)

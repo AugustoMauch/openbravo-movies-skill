@@ -21,16 +21,21 @@
         },
         {
           "name": "BestMoviesIntent",
-          "slots": [],
+          "slots": [
+            {
+              "name": "year",
+              "type": "AMAZON.FOUR_DIGIT_NUMBER"
+            }
+          ],
           "samples": [
-            "devuelve las películas de más éxito",
-            "dame la lista de las mejores películas",
-            "dime las películas más populares"
+            "devuelve las películas de más éxito de {year}",
+            "dame la lista de las mejores películas del año {year}",
+            "dime las películas más populares estrenadas en {year}"
           ]
         }
       ],
       "types": []
     }
   },
-  "version": "5"
+  "version": "6"
 }
