@@ -5,8 +5,7 @@
  * */
 const Alexa = require('ask-sdk-core');
 const axios = require('axios');
-
-const API_KEY = 'TO_BE_EDITED';
+const { API_URL, API_KEY } = require('./api-constants');
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
@@ -34,22 +33,28 @@ const BestMoviesIntentHandler = {
         const genreValue = Alexa.getSlotValue(handlerInput.requestEnvelope, 'genre');
         const genreSlot = Alexa.getSlot(handlerInput.requestEnvelope, 'genre');
         const genreId = genreSlot && genreSlot.slotValue ? genreSlot.slotValue.resolutions.resolutionsPerAuthority[0].values[0].value.id : '';
-
-        const yearParam = yearValue ? `&primary_release_year=${yearValue}` : '';
-        const genreParam = genreId ? `&with_genres=${genreId}` :  '';
-        const response = await axios(`https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${API_KEY}${yearParam}${genreParam}`);
-
-        const filmTitles = response.data.results.slice(0, 3).map(result => result.title).join(',');
-
-        const yearOutput = yearValue ? ` estrenadas en ${yearValue}` : '';
-        const genreOutput = genreValue ? ` de ${genreValue}` : '';
-        const speakOutput = `Estas son las tres películas más populares ${genreOutput} ${yearOutput}: ${filmTitles}`;
+        
+        const response = await axios(getUrl(yearValue, genreId));
+        const speakOutput = buildOutput(yearValue, genreValue, response);
         
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .getResponse();
     }
 };
+
+const getUrl = function(yearValue, genreId) {
+    const yearParam = yearValue ? `&primary_release_year=${yearValue}` : '';
+    const genreParam = genreId ? `&with_genres=${genreId}` :  '';
+    return `${API_URL}?sort_by=popularity.desc&api_key=${API_KEY}${yearParam}${genreParam}`;
+}
+
+const buildOutput = function(yearValue, genreValue, response) {
+    const yearOutput = yearValue ? ` de ${yearValue}` : '';
+    const genreOutput = genreValue ? ` de ${genreValue}` : '';
+    const filmTitles = response.data.results.slice(0, 3).map(result => result.title).join(',');
+    return `Estas son las tres películas más populares ${yearOutput} ${genreOutput}: ${filmTitles}`;
+}
 
 const HelpIntentHandler = {
     canHandle(handlerInput) {
