@@ -30,13 +30,20 @@ const BestMoviesIntentHandler = {
     async handle(handlerInput) {
 
         const yearValue = Alexa.getSlotValue(handlerInput.requestEnvelope, 'year');
+        
+        const genreValue = Alexa.getSlotValue(handlerInput.requestEnvelope, 'genre');
+        const genreSlot = Alexa.getSlot(handlerInput.requestEnvelope, 'genre');
+        const genreId = genreSlot && genreSlot.slotValue ? genreSlot.slotValue.resolutions.resolutionsPerAuthority[0].values[0].value.id : '';
+
         const yearParam = yearValue ? `&primary_release_year=${yearValue}` : '';
-        const response = await axios(`https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${API_KEY}${yearParam}`);
+        const genreParam = genreId ? `&with_genres=${genreId}` :  '';
+        const response = await axios(`https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${API_KEY}${yearParam}${genreParam}`);
 
         const filmTitles = response.data.results.slice(0, 3).map(result => result.title).join(',');
 
         const yearOutput = yearValue ? ` estrenadas en ${yearValue}` : '';
-        const speakOutput = `Estas son las tres películas más populares ${yearOutput}: ${filmTitles}`;
+        const genreOutput = genreValue ? ` de ${genreValue}` : '';
+        const speakOutput = `Estas son las tres películas más populares ${genreOutput} ${yearOutput}: ${filmTitles}`;
         
         return handlerInput.responseBuilder
             .speak(speakOutput)

@@ -25,17 +25,66 @@
             {
               "name": "year",
               "type": "AMAZON.FOUR_DIGIT_NUMBER"
+            },
+            {
+              "name": "genre",
+              "type": "MovieGenre"
             }
           ],
           "samples": [
-            "devuelve las películas de más éxito de {year}",
-            "dame la lista de las mejores películas del año {year}",
-            "dime las películas más populares estrenadas en {year}"
+            "devuelve las películas de más éxito de {year} de {genre}",
+            "dame la lista de las mejores películas de {genre} del año {year}",
+            "dime las películas más populares de {genre} estrenadas en {year}"
           ]
         }
       ],
-      "types": []
+      "types": [
+        {
+          "values": [
+            {
+              "id": "27",
+              "name": {
+                "value": "horror",
+                "synonyms": [
+                  "miedo"
+                ]
+              }
+            },
+            {
+              "id": "35",
+              "name": {
+                "value": "comedia",
+                "synonyms": [
+                  "risas"
+                ]
+              }
+            },
+            {
+              "id": "16",
+              "name": {
+                "value": "animación"
+              }
+            },
+            {
+              "id": "12",
+              "name": {
+                "value": "aventuras"
+              }
+            },
+            {
+              "id": "28",
+              "name": {
+                "value": "acción",
+                "synonyms": [
+                  "tiros"
+                ]
+              }
+            }
+          ],
+          "name": "MovieGenre"
+        }
+      ]
     }
   },
-  "version": "6"
+  "version": "7"
 }
