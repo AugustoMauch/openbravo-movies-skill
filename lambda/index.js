@@ -52,8 +52,12 @@ const getUrl = function(yearValue, genreId) {
 const buildOutput = function(yearValue, genreValue, response) {
     const yearOutput = yearValue ? ` de ${yearValue}` : '';
     const genreOutput = genreValue ? ` de ${genreValue}` : '';
-    const filmTitles = response.data.results.slice(0, 3).map(result => result.title).join(',');
-    return `Estas son las tres películas más populares ${yearOutput} ${genreOutput}: ${filmTitles}`;
+    const filmTitles = response.data.results.slice(0, 3)
+                                            .map(result => result.title)
+                                            .map(title => `${title}  <break time="1s"/>`)
+                                            .join(',');
+    
+    return `Estas son las tres películas más populares ${yearOutput} ${genreOutput}: <voice name="Joanna">${filmTitles}</voice>`;
 }
 
 const HelpIntentHandler = {
