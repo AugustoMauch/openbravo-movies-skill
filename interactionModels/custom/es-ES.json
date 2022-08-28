@@ -16,23 +16,21 @@
           "samples": []
         },
         {
-          "name": "HelloWorldIntent",
-          "slots": [],
-          "samples": [
-            "hola",
-            "como estás",
-            "di hola mundo",
-            "di hola",
-            "hola mundo"
-          ]
-        },
-        {
           "name": "AMAZON.NavigateHomeIntent",
           "samples": []
+        },
+        {
+          "name": "BestMoviesIntent",
+          "slots": [],
+          "samples": [
+            "devuelve las películas de más éxito",
+            "dame la lista de las mejores películas",
+            "dime las películas más populares"
+          ]
         }
       ],
       "types": []
     }
   },
-  "version": "4"
+  "version": "5"
 }
